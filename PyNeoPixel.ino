@@ -1,7 +1,14 @@
 #include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+ #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+#endif
 
-#define PIN 8
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(3, PIN, NEO_GRB + NEO_KHZ800);
+#define LED_PIN 8
+#define NCOLUMNS 16
+#define NROWS 16
+#define LED_COUNT (NCOLUMNS*NROWS)
+#define BAUDRATE 115200
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 /*
 \r  Start of command
@@ -23,7 +30,7 @@ enum Commands {
 };
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(BAUDRATE);
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
   Serial.println("Ok");

@@ -4,9 +4,9 @@ import serial
 import time
 
 class NeoPixel(object):
-    def __init__(self, port):
+    def __init__(self, port, baudrate=9600):
         self.port = port
-        self.ser = serial.Serial(self.port, 9600, timeout=60)
+        self.ser = serial.Serial(self.port, baudrate, timeout=10)
         self.command_count = 0
 
     def setPixelColor(self, pixel, red, green, blue):
