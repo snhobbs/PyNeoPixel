@@ -12,23 +12,30 @@ def main():
         #sleep(1)
     strand.show()
 
-    set = []
+    led_set = []
 
-    for x in range(width*height):
+    x = 0
+    while x < width*height:
         print(x)
         strand.setPixelColor(x, 0, 255, 255)
         strand.show()
 
-        while True:
-            resp = input("%d?"%x)
-            if resp.lower() == "y":
-                set.append(x)
-                break
-            elif resp.lower() == 'n':
-                strand.setPixelColor(x, 0, 0, 0)
-                strand.show()
-                break
-    print(set)
+        resp = input("%d?"%x)
+        if resp.lower() == "y":
+            led_set.append(x)
+            x+=1
+        elif resp.lower() == 'n':
+            strand.setPixelColor(x, 0, 0, 0)
+            strand.show()
+            x+=1
+        elif 'b' in resp.lower():
+            strand.setPixelColor(x, 0, 0, 0)
+            if x > 0:
+                x-=1
+                if len(led_set):
+                    led_set.pop()
+                    strand.setPixelColor(x, 0, 0, 0)
+        print(led_set)
 
     '''
     for x in range(5):
